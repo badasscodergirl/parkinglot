@@ -2,12 +2,10 @@ package com.gojek.parking.app.service;
 
 import com.gojek.parking.app.exceptions.InvalidActionException;
 import com.gojek.parking.app.exceptions.NoParkingSlotAvailable;
+import com.gojek.parking.app.exceptions.VehicleIsAlreadyParked;
 import com.gojek.parking.app.model.Vehicle;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collectors;
@@ -28,13 +26,19 @@ public class ParkingSlotsManager<V extends Vehicle> {
         }
     }
 
-    public boolean park(V vehicle) throws NoParkingSlotAvailable {
+    public boolean park(V vehicle) throws NoParkingSlotAvailable, VehicleIsAlreadyParked {
         /*if(parkedVehicles.size() == capacity) {
             throw new NoParkingSlotAvailable(vehicle);
         }*/
         if(availableSpaces.isEmpty()) {
             throw new NoParkingSlotAvailable(vehicle);
         }
+
+        Set<String> alreadyParkedNumbers = parkedVehicles.values().stream().map(Vehicle::getRegistrationNo).collect(Collectors.toSet());
+        if(alreadyParkedNumbers.contains(vehicle.getRegistrationNo())) {
+            throw new VehicleIsAlreadyParked(vehicle.getRegistrationNo());
+        }
+
         int available = availableSpaces.first();
         vehicle.parked(available);
         availableSpaces.remove(available);
@@ -86,6 +90,12 @@ public class ParkingSlotsManager<V extends Vehicle> {
 
     public List<String> getRegNumsForColor(String color) {
        return getVehiclesForColor(color).stream().map(Vehicle::getRegistrationNo).collect(Collectors.toList());
+    }
+
+    public int getRemainingCapacity() {
+        if(this.capacity == 0) return 0;
+
+        return this.availableSpaces.size();
     }
 
     private List<V> getVehiclesForColor(String color) {

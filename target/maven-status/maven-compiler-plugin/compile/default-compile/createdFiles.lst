@@ -9,9 +9,11 @@ com/gojek/parking/app/actions/Action.class
 com/gojek/parking/app/service/ParkingService.class
 com/gojek/parking/app/exceptions/InvalidActionException.class
 com/gojek/parking/app/actions/ParkingLotCreation.class
+com/gojek/parking/app/constants/Messages.class
 com/gojek/parking/app/actions/Park.class
 com/gojek/parking/app/actions/ShowCurrentStatus.class
 com/gojek/parking/app/exceptions/FailedToExecuteAction.class
+com/gojek/parking/app/exceptions/VehicleIsAlreadyParked.class
 com/gojek/parking/app/actions/ActionType.class
 com/gojek/parking/app/actions/Leave.class
 com/gojek/parking/app/actions/SlotNumForRegistrationNum.class

@@ -2,6 +2,7 @@ package com.gojek.parking.app.service;
 
 
 import com.gojek.parking.app.actions.*;
+import com.gojek.parking.app.constants.Messages;
 import com.gojek.parking.app.exceptions.*;
 import com.gojek.parking.app.model.Vehicle;
 
@@ -24,7 +25,8 @@ public class ParkingService<V extends Vehicle> {
         }
     }
 
-    public void executeAction(Action action) throws InvalidActionException, NoParkingSlotAvailable, FailedToExecuteAction {
+    public void executeAction(Action action)
+            throws InvalidActionException, NoParkingSlotAvailable, FailedToExecuteAction {
         try {
             switch (action.actionType()) {
 
@@ -81,10 +83,10 @@ public class ParkingService<V extends Vehicle> {
             throw new ParkingLotIsAlreadyCreated();
         }
         this.parkingSlotsManager = new ParkingSlotsManager<>(capacity);
-        System.out.println("Created parking lot with "+capacity+" slots");
+        System.out.println(Messages.parkingLotSuccessMessage(capacity));
     }
 
-    private void parkVehicle(V vehicle) throws NoParkingSlotAvailable, ParkingLotIsNotInitiated {
+    private void parkVehicle(V vehicle) throws NoParkingSlotAvailable, ParkingLotIsNotInitiated, VehicleIsAlreadyParked {
         checkParkingLotInitiated();
         this.parkingSlotsManager.park(vehicle);
     }
@@ -103,7 +105,7 @@ public class ParkingService<V extends Vehicle> {
         checkParkingLotInitiated();
         List<Integer> slotNums = this.parkingSlotsManager.getSlotNumbersForColor(color);
         if(slotNums == null || slotNums.isEmpty()) {
-            System.out.println("No vehicle of color "+color+" is parked in the lot.");
+            System.out.println(Messages.NOT_FOUND);
             return;
         }
         String commaSeparatedResultStr = slotNums.stream().map(String::valueOf).collect(Collectors.joining(", "));
@@ -114,7 +116,7 @@ public class ParkingService<V extends Vehicle> {
         checkParkingLotInitiated();
         int slotNum = this.parkingSlotsManager.getSlotNumberForRegNum(regNum);
         if(slotNum == 0) {
-            System.out.println("Not found.");
+            System.out.println(Messages.NOT_FOUND);
         } else {
             System.out.println(slotNum);
         }
@@ -143,8 +145,13 @@ public class ParkingService<V extends Vehicle> {
         }
     }
 
-    private boolean isParkingLotInitiated() {
+    public boolean isParkingLotInitiated() {
         return this.parkingSlotsManager != null;
+    }
+
+    public int getRemaningCapacity() {
+        if(!isParkingLotInitiated()) return 0;
+        return this.parkingSlotsManager.getRemainingCapacity();
     }
 
 }

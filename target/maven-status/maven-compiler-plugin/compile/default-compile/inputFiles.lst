@@ -1,4 +1,5 @@
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/actions/ExitAction.java
+/Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/constants/Messages.java
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/model/Car.java
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/exceptions/InvalidActionException.java
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/service/ParkingService.java
@@ -8,6 +9,7 @@
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/actions/RegistrationsNumsForColors.java
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/service/ParkingSlotsManager.java
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/actions/ParkingLotCreation.java
+/Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/exceptions/VehicleIsAlreadyParked.java
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/extractors/InputExtractor.java
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/exceptions/ParkingLotIsAlreadyCreated.java
 /Users/shaziyasyeda/Projects/assignment/gojek/parkinglot/src/main/java/com/gojek/parking/app/actions/Leave.java
